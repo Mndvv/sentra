@@ -1,0 +1,634 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Struktur Organisasi - OSIS Nawasena</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20,100,1,200&" rel="stylesheet" />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+    <style>
+        /* Modal Styles */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 2000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            backdrop-filter: blur(5px);
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+        
+        .modal.show {
+            display: flex;
+            opacity: 1;
+        }
+        
+        .modal-content {
+            background: var(--bg-card);
+            margin: auto;
+            padding: 2rem;
+            width: 90%;
+            max-width: 600px;
+            border-radius: 24px;
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+            transform: scale(0.9);
+            transition: transform 0.3s ease;
+            max-height: 80vh;
+            overflow-y: auto;
+            position: relative;
+            border: 1px solid rgba(99, 102, 241, 0.2);
+        }
+        
+        .modal.show .modal-content {
+            transform: scale(1);
+        }
+        
+        .modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1.5rem;
+            padding-bottom: 1rem;
+            border-bottom: 2px solid var(--accent);
+        }
+        
+        .modal-header h2 {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--accent);
+            margin: 0;
+        }
+        
+        .close-modal {
+            background: none;
+            border: none;
+            font-size: 2rem;
+            cursor: pointer;
+            color: var(--text-muted);
+            transition: color 0.3s;
+            line-height: 1;
+            padding: 0 10px;
+        }
+        
+        .close-modal:hover {
+            color: var(--accent);
+        }
+        
+        .modal-body {
+            color: var(--text-main);
+        }
+        
+        .sekbid-detail {
+            margin-bottom: 2rem;
+        }
+        
+        .sekbid-detail h3 {
+            font-size: 1.1rem;
+            color: var(--text-muted);
+            margin-bottom: 1rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        
+        .member-list {
+            list-style: none;
+            padding: 0;
+        }
+        
+        .member-list li {
+            padding: 0.8rem 1rem;
+            background: var(--bg-primary);
+            border-radius: 12px;
+            margin-bottom: 0.5rem;
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            border: 1px solid rgba(99, 102, 241, 0.1);
+        }
+        
+        .member-list .member-icon {
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            background: var(--accent);
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 600;
+        }
+        
+        .program-list {
+            background: var(--bg-primary);
+            padding: 1rem;
+            border-radius: 16px;
+            margin-top: 1rem;
+        }
+        
+        .program-item {
+            padding: 1rem;
+            border-bottom: 1px solid rgba(99, 102, 241, 0.1);
+        }
+        
+        .program-item:last-child {
+            border-bottom: none;
+        }
+        
+        .program-item h4 {
+            color: var(--accent);
+            margin-bottom: 0.3rem;
+        }
+        
+        .program-item p {
+            color: var(--text-muted);
+            font-size: 0.9rem;
+        }
+        
+        .status-badge {
+            display: inline-block;
+            padding: 3px 10px;
+            border-radius: 12px;
+            font-size: 0.7rem;
+            font-weight: 600;
+            margin-left: 1rem;
+        }
+        
+        .sekbid-card {
+            cursor: pointer;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .sekbid-card::after {
+            content: 'Klik untuk detail';
+            position: absolute;
+            bottom: -20px;
+            left: 0;
+            right: 0;
+            background: var(--accent);
+            color: white;
+            text-align: center;
+            padding: 5px;
+            font-size: 0.7rem;
+            transition: bottom 0.3s ease;
+            opacity: 0;
+        }
+        
+        .sekbid-card:hover::after {
+            bottom: 0;
+            opacity: 1;
+        }
+        
+        .sekbid-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 30px -10px rgba(99, 102, 241, 0.3);
+        }
+        
+        /* Animasi untuk modal */
+        @keyframes slideIn {
+            from {
+                transform: translateY(-50px);
+                opacity: 0;
+            }
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="hamburger" id="hamburger">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+            
+            <div class="logo">
+                <a href="index.html">SENTRA<span>.</span></a>
+            </div>
+            
+            <ul class="nav-links" id="nav-links">
+                <li><a href="index.html">Beranda</a></li>
+                <li><a href="struktur.html">Struktur</a></li>
+                <li><a href="program.html">Program Kerja</a></li>
+                <li><a href="dokumentasi.html">Dokumentasi</a></li>
+                <li><a href="x.html">AURORA</a></li>
+            </ul>
+
+            <button id="dark-mode-toggle" class="btn-theme"><span class="material-symbols-outlined">dark_mode</span></button>
+        </div>
+    </nav>
+    
+    <main class="container section-padding">
+        <div class="section-header" style="margin-top: 4rem; text-align: center;">
+            <h2>Struktur Organisasi</h2>
+            <p>Kabinet Nawasena 2025/2026</p>
+        </div>
+        
+        <div class="bento-grid">
+            <div class="bento-item featured">
+                <div class="member-photo"><img src="https://i.pravatar.cc/400?img=11" alt="Ketua"></div>
+                <div class="member-info">
+                    <span class="role-badge">Ketua Umum</span>
+                    <h3>Cecillia Natasya Sonthani</h3>
+                    <p>"Memimpin dengan aksi, bukan sekadar posisi."</p>
+                </div>
+            </div>
+
+            <div class="bento-item">
+                <div class="member-photo"><img src="https://i.pravatar.cc/300?img=5" alt="Wakil"></div>
+                <div class="member-info">
+                    <span class="role-badge">Wakil Ketua 1</span>
+                    <h3>Adam Abdulloh Mu'arif</h3>
+                </div>
+            </div>
+            
+            <div class="bento-item">
+                <div class="member-photo"><img src="https://i.pravatar.cc/300?img=5" alt="Wakil"></div>
+                <div class="member-info">
+                    <span class="role-badge">Wakil Ketua 2</span>
+                    <h3>Muhammad Fadhli Hidayatullah</h3>
+                </div>
+            </div>
+
+            <div class="bento-item">
+                <div class="member-photo"><img src="https://i.pravatar.cc/300?img=12" alt="Sekretaris"></div>
+                <div class="member-info">
+                    <span class="role-badge">Sekretaris Umum</span>
+                    <h3>Maulana Ferdi Irawan</h3>
+                </div>
+            </div>
+            
+            <div class="bento-item">
+                <div class="member-photo"><img src="https://i.pravatar.cc/300?img=12" alt="Sekretaris"></div>
+                <div class="member-info">
+                    <span class="role-badge">Sekretaris 1</span>
+                    <h3>Anggun Permata Jalasena Putri</h3>
+                </div>
+            </div>
+            
+            <div class="bento-item">
+                <div class="member-photo"><img src="https://i.pravatar.cc/300?img=12" alt="Sekretaris"></div>
+                <div class="member-info">
+                    <span class="role-badge">Sekretaris 2</span>
+                    <h3>Inez Mikha Rahayu</h3>
+                </div>
+            </div>
+
+            <div class="bento-item">
+                <div class="member-photo"><img src="https://i.pravatar.cc/300?img=44" alt="Bendahara"></div>
+                <div class="member-info">
+                    <span class="role-badge">Bendahara Umum</span>
+                    <h3>Lulu Karpika</h3>
+                </div>
+            </div>
+            
+            <div class="bento-item">
+                <div class="member-photo"><img src="https://i.pravatar.cc/300?img=44" alt="Bendahara"></div>
+                <div class="member-info">
+                    <span class="role-badge">Bendahara 1</span>
+                    <h3>Erlangga Nuriansyah</h3>
+                </div>
+            </div>
+        </div>
+
+        <div class="sekbid-container">
+            <h3 class="subsection-title">Seksi Bidang </h3>
+            <div class="sekbid-grid" id="sekbid-list"></div>
+        </div>
+    </main>
+
+    <!-- Modal Detail Sekbid -->
+    <div id="sekbidModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 id="modalTitle">Detail Seksi Bidang</h2>
+                <button class="close-modal" onclick="closeModal()">&times;</button>
+            </div>
+            <div class="modal-body" id="modalBody">
+                <!-- Konten akan diisi oleh JavaScript -->
+            </div>
+        </div>
+    </div>
+
+    <div class="mini-player">
+        <div class="player-info">
+            <p class="track-name" style="font-weight: bold; font-size: 0.8rem;">Radio Nawasena</p>
+            <div class="player-controls">
+                <button class="btn-player" id="btn-play-pause" onclick="playPauseMusic()"><span class="material-symbols-outlined">play_arrow</span></button>
+                <button class="btn-player" onclick="nextMusic()"><span class="material-symbols-outlined">skip_next</span></button>
+            </div>
+        </div>
+        <audio id="audio-player"></audio>
+    </div>
+
+    <script src="js/script.js"></script>
+    <script>
+        // Data lengkap untuk setiap Sekbid
+        const sekbidData = [
+            {
+                number: 1,
+                name: "Keimanan dan Ketaqwaan Terhadap Tuhan Yang Maha Esa",
+                members: [
+                    "ALVINA DAMAYANTI - Koordinator",
+                    "VIOLA BINTANG PUTRI - Anggota",
+                    "IBNU AZIZ SUSANTO - Anggota",
+                ],
+                programs: [
+                    {
+                        name: "Kajian Rutin Jumat",
+                        description: "Kajian keagamaan setiap hari Jumat pagi sebelum pembelajaran dimulai.",
+                        status: "Berjalan"
+                    },
+                    {
+                        name: "Peringatan Hari Besar Keagamaan",
+                        description: "Menyelenggarakan kegiatan untuk memperingati hari besar keagamaan.",
+                        status: "Rencana"
+                    }
+                ]
+            },
+            {
+                number: 2,
+                name: "Budi Pekerti atau Akhlak Mulia",
+                members: [
+                    "IRMA ANGGIANI - Koordinator",
+                    "RORO WILLISH - Anggota",
+                ],
+                programs: [
+                    {
+                        name: "Gerakan Senyum, Sapa, Salam",
+                        description: "Membudayakan 3S di lingkungan sekolah.",
+                        status: "Berjalan"
+                    }
+                ]
+            },
+            {
+                number: 3,
+                name: "Kepribadian Unggul, Wawasan Kebangsaan dan Bela Negara",
+                members: [
+                    "FAIZAL ARFA MUBAROQ - Koordinator",
+                    "NURAFNI LIDYA YUNIAWATI - Anggota",
+                    "AZKA RAIHANA PRIRA - Anggota"
+                ],
+                programs: [
+                    {
+                        name: "Upacara Bendera Kreatif",
+                        description: "Upacara bendera dengan konsep yang lebih interaktif dan edukatif.",
+                        status: "Berjalan"
+                    },
+                    {
+                        name: "Kunjungan ke Museum",
+                        description: "Study tour ke museum untuk menumbuhkan rasa nasionalisme.",
+                        status: "Rencana"
+                    }
+                ]
+            },
+            {
+                number: 4,
+                name: "Prestasi Akademik, Seni, dan atau Olahraga Sesuai Minat dan Bakat",
+                members: [
+                    "GALUH CANDRAWATI PUTRI - Koordinator",
+                    "ZASKIA INDRIANI PUTRI - Anggota",
+                    "SITI NURUL FADILAH - Anggota"
+                ],
+                programs: [
+                    {
+                        name: "Olimpiade Sains Sekolah",
+                        description: "Kompetisi sains antar kelas untuk menjaring bakat akademik.",
+                        status: "Rencana"
+                    },
+                    {
+                        name: "Lomba Bakat dan Kreativitas",
+                        description: "Wadah bagi siswa untuk menampilkan bakat seni dan olahraga.",
+                        status: "Berjalan"
+                    }
+                ]
+            },
+            {
+                number: 5,
+                name: "Demokrasi, Hak Asasi Manusia, Pendidikan Politik, Lingkungan Hidup, Kepekaan dan Toleransi Sosial Dalam Konteks Masyarakat Plural",
+                members: [
+                    "KANIA ANANDA PRATIWI - Koordinator",
+                    "K. TITHANIA WIDYA R.F - Anggota",
+                    "JIHAN AIRA PUTRI - Anggota"
+                ],
+                programs: [
+                    {
+                        name: "Diskusi Demokrasi",
+                        description: "Forum diskusi tentang pentingnya demokrasi di lingkungan sekolah.",
+                        status: "Berjalan"
+                    },
+                    {
+                        name: "Bakti Sosial",
+                        description: "Kegiatan berbagi dengan masyarakat sekitar sekolah.",
+                        status: "Rencana"
+                    }
+                ]
+            },
+            {
+                number: 6,
+                name: "Kreativitas, Keterampilan dan Kewirausahaan",
+                members: [
+                    "ADINDA SEPTIANA PUTRI - Koordinator",
+                    "KEYLA ZALFA NAQIYA - Anggota",
+                    "ZAKI ABDUL HAQ - Anggota"
+                ],
+                programs: [
+                    {
+                        name: "Bazar Kewirausahaan",
+                        description: "Pasar siswa untuk menjual hasil karya dan produk kreatif.",
+                        status: "Berjalan"
+                    }
+                ]
+            },
+            {
+                number: 7,
+                name: "Kualitas Jasmani, Kesehatan, dan Gizi Berbasis Sumber Gizi Yang Terdiversifikasi",
+                members: [
+                    "DEVIRA NABILIRAH - Koordinator",
+                    "NURAINI - Anggota",
+                ],
+                programs: [
+                    {
+                        name: "Senam Sehat Bersama",
+                        description: "Senam pagi setiap hari Jumat untuk menjaga kebugaran.",
+                        status: "Berjalan"
+                    },
+                    {
+                        name: "Pemeriksaan Kesehatan Rutin",
+                        description: "Kerjasama dengan puskesmas untuk cek kesehatan berkala.",
+                        status: "Rencana"
+                    }
+                ]
+            },
+            {
+                number: 8,
+                name: "Sastra dan Budaya",
+                members: [
+                    "GADIS YURA SAFA RASIKAH - Koordinator",
+                    "BIANCA MYISHA NADIRA - Anggota",
+                    "RENI - Anggota"
+                ],
+                programs: [
+                    {
+                        name: "Pentas Seni Budaya",
+                        description: "Menampilkan berbagai kesenian tradisional dan modern.",
+                        status: "Rencana"
+                    }
+                ]
+            },
+            {
+                number: 9,
+                name: "Teknologi, Informasi, dan Komunikasi",
+                members: [
+                    "AMIRAH HADJRIAH HARIS - Koordinator",
+                    "NADIA KOHERUNISA - Anggota",
+                    "CIKAL RAYA NUR AZKIYA - Anggota"
+                ],
+                programs: [
+                    {
+                        name: "Pelatihan Desain Grafis",
+                        description: "Workshop desain untuk pemula.",
+                        status: "Berjalan"
+                    },
+                    {
+                        name: "Pengelolaan Media Sosial OSIS",
+                        description: "Mengelola konten kreatif untuk Instagram dan TikTok OSIS.",
+                        status: "Berjalan"
+                    }
+                ]
+            },
+            {
+                number: 10,
+                name: "Komunikasi Dalam Bahasa Inggris",
+                members: [
+                    "MARIO TEGUH JUNIOR - Koordinator",
+                    "LISTIANA DEWI - Anggota",
+                ],
+                programs: [
+                    {
+                        name: "English Club",
+                        description: "Kegiatan rutin untuk meningkatkan kemampuan berbahasa Inggris.",
+                        status: "Berjalan"
+                    },
+                    {
+                        name: "English Debate Competition",
+                        description: "Kompetisi debat bahasa Inggris antar kelas.",
+                        status: "Rencana"
+                    }
+                ]
+            }
+        ];
+
+        // Fungsi untuk menampilkan sekbid di grid
+        function tampilkanSekbidInteraktif() {
+            const container = document.getElementById('sekbid-list');
+            if (!container) return;
+
+            container.innerHTML = sekbidData.map(sekbid => `
+                <div class="sekbid-card" onclick="showSekbidDetail(${sekbid.number})">
+                    <span class="sekbid-num">${sekbid.number}</span>
+                    <h4>SEKBID ${sekbid.number}</h4>
+                    <p>${sekbid.name}</p>
+                </div>
+            `).join('');
+        }
+
+        // Fungsi untuk menampilkan detail sekbid di modal
+        function showSekbidDetail(sekbidNumber) {
+            const sekbid = sekbidData.find(s => s.number === sekbidNumber);
+            if (!sekbid) return;
+
+            const modal = document.getElementById('sekbidModal');
+            const modalTitle = document.getElementById('modalTitle');
+            const modalBody = document.getElementById('modalBody');
+
+            modalTitle.textContent = `SEKBID ${sekbid.number}`;
+
+            // Membuat konten modal
+            const memberItems = sekbid.members.map(member => `
+                <li>
+                    <span class="member-icon">${member.charAt(0)}</span>
+                    <span>${member}</span>
+                </li>
+            `).join('');
+
+            const programItems = sekbid.programs.map(program => `
+                <div class="program-item">
+                    <h4>${program.name} 
+                        <span class="status-badge" style="background: ${program.status === 'Berjalan' ? '#fef3c7' : '#e2e8f0'}; color: ${program.status === 'Berjalan' ? '#d97706' : '#475569'}">
+                            ${program.status}
+                        </span>
+                    </h4>
+                    <p>${program.description}</p>
+                </div>
+            `).join('');
+
+            modalBody.innerHTML = `
+                <div class="sekbid-detail">
+                    <h3>Deskripsi Bidang</h3>
+                    <p style="margin-bottom: 1.5rem; padding: 1rem; background: var(--bg-primary); border-radius: 12px;">
+                        ${sekbid.name}
+                    </p>
+                </div>
+                
+                <div class="sekbid-detail">
+                    <h3>Anggota</h3>
+                    <ul class="member-list">
+                        ${memberItems}
+                    </ul>
+                </div>
+                
+                <div class="sekbid-detail">
+                    <h3>Program Kerja</h3>
+                    <div class="program-list">
+                        ${programItems}
+                    </div>
+                </div>
+            `;
+
+            // Tampilkan modal
+            modal.classList.add('show');
+            document.body.style.overflow = 'hidden'; // Mencegah scroll di belakang modal
+        }
+
+        // Fungsi untuk menutup modal
+        function closeModal() {
+            const modal = document.getElementById('sekbidModal');
+            modal.classList.remove('show');
+            document.body.style.overflow = ''; // Kembalikan scroll
+        }
+
+        // Tutup modal jika klik di luar konten modal
+        window.onclick = function(event) {
+            const modal = document.getElementById('sekbidModal');
+            if (event.target === modal) {
+                closeModal();
+            }
+        }
+
+        // Tambahkan event listener untuk tombol ESC
+        document.addEventListener('keydown', function(event) {
+            if (event.key === 'Escape') {
+                closeModal();
+            }
+        });
+
+        // Override fungsi tampilkanSekbid yang ada di script.js
+        document.addEventListener('DOMContentLoaded', () => {
+            tampilkanSekbidInteraktif();
+        });
+    </script>
+</body>
+</html>
