@@ -1,7 +1,7 @@
 // --- DATA SOURCE ---
 const dataAgenda = [
     { judul: "SMART EKOLOGI", tanggal: "24 Februari s.d 13 Maret 2026", ket: "Pelaksanaan pesantren kilat berbasis PANCANITI." },
-    { judul: "Rantang Kanyaah", tanggal: "06 Maret 2026", ket: "Menyebar kebaikan di bulan penuh berkah." }
+    { judul: "Rantang Kanyaah", tanggal: "04 Maret 2026", ket: "Menyebar kebaikan di bulan penuh berkah." }
 ];
 
 let playlist = [];
