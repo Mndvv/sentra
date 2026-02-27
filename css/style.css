@@ -43,6 +43,7 @@ body {
 }
 
 /* Navbar Modern */
+
 .navbar {
     position: fixed;
     top: 0;
@@ -161,6 +162,7 @@ body {
 }
 
 /* Floating Player */
+
 .mini-player {
     position: fixed;
     bottom: 2rem;
@@ -320,6 +322,7 @@ body {
 }
 
 /* Bento Grid Layout */
+
 .bento-grid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
