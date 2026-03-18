@@ -1,6 +1,6 @@
 // --- DATA SOURCE ---
 const dataAgenda = [
-    { judul: "Rantang Kanyaah", tanggal: "04 Maret 2026", ket: "Menyebar kebaikan di bulan penuh berkah." }
+    { judul: "Rapat Pleno Awal", tanggal: "04 April 2026", ket: "Pemaparan Program Kerja untuk satu periode 2025/2026." }
 ];
 
 let playlist = [];
