@@ -12,6 +12,10 @@
             opacity: 0;
             transition: opacity 0.3s ease;
         }
+
+        .section-header{
+            margin-left: 25px;
+        }
         
         .gallery-modal.show {
             display: flex;
