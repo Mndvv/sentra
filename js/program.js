@@ -37,6 +37,4 @@ async function loadProgramKerja() {
     }).join('');
 }
 
-document.addEventListener('DOMContentLoaded', () => {
-    loadProgramKerja();
-});
+// Called by router when /#/program is navigated to

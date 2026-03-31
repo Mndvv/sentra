@@ -249,27 +249,17 @@ function closeSekbidModal() {
     document.body.style.overflow = '';
 }
 
-// Window Modals listener
-window.onclick = function(event) {
+// Close on outside click
+window.addEventListener('click', function(event) {
     const pengurusModal = document.getElementById('pengurusModal');
     const sekbidModal = document.getElementById('sekbidModal');
-    
-    if (event.target === pengurusModal) {
-        closePengurusModal();
-    }
-    if (event.target === sekbidModal) {
-        closeSekbidModal();
-    }
-}
+    if (event.target === pengurusModal) closePengurusModal();
+    if (event.target === sekbidModal) closeSekbidModal();
+});
 
 document.addEventListener('keydown', function(event) {
     if (event.key === 'Escape') {
         closePengurusModal();
         closeSekbidModal();
     }
-});
-
-document.addEventListener('DOMContentLoaded', () => {
-    loadPengurus();
-    loadSekbid();
 });

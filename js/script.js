@@ -198,27 +198,20 @@ function initHamburger() {
     });
 }
 
-// --- INITIALIZATION ---
+// ── INITIALIZATION ──────────────────────────────
+// Player and global UI init runs once when scripts load
 document.addEventListener('DOMContentLoaded', () => {
-    // Inisialisasi semua komponen
     initDarkMode();
     initHamburger();
-    tampilkanAgenda();
     restorePlayerState();
-    
-    // Simpan progres waktu putar setiap 5 detik
+
     setInterval(savePlayerProgress, 5000);
-    
-    // Simpan track saat ganti lagu
     audioPlayer?.addEventListener('ended', nextMusic);
-    
-    // Simpan currentTrack saat lagu berganti
     audioPlayer?.addEventListener('play', () => {
         localStorage.setItem('currentTrack', currentTrackIndex);
     });
 });
 
-// Simpan state sebelum halaman di-unload
 window.addEventListener('beforeunload', () => {
     if (audioPlayer) {
         localStorage.setItem('currentTime', audioPlayer.currentTime);
@@ -226,3 +219,11 @@ window.addEventListener('beforeunload', () => {
         localStorage.setItem('currentTrack', currentTrackIndex);
     }
 });
+
+// ── SMOOTH SCROLL (beranda) ──────────────────────
+function initSmoothScroll() {
+    document.getElementById('filosofi-btn')?.addEventListener('click', function(e) {
+        const target = document.getElementById('nawasena-section');
+        if (target) { e.preventDefault(); target.scrollIntoView({ behavior: 'smooth' }); }
+    });
+}

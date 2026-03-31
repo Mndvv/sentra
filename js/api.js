@@ -1,5 +1,5 @@
-const BASE_URL = "http://localhost:5000/api";
-const UPLOADS_URL = "http://localhost:5000/uploads";
+const BASE_URL = "http://192.168.1.17:5000/api";
+const UPLOADS_URL = "http://192.168.1.17:5000/uploads";
 
 // Fetch Pengurus
 async function fetchPengurus() {
@@ -83,7 +83,7 @@ async function submitKotakSaran(data) {
 function getImageUrl(path) {
     if (!path) return 'assets/default-placeholder.webp'; // Fallback
     if (path.startsWith('http') || path.startsWith('assets/')) return path;
-    
+
     // Asumsi path di DB adalah nama file atau relatif misal "pengurus/cece.webp"
     // Menjadikan http://localhost:5000/uploads/pengurus/cece.webp
     // Mari normalize slash-nya dulu

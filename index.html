@@ -4,89 +4,86 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>OSIS Nawasena — Sistem Elektronik Digital</title>
+    <title>OSIS Nawasena — SENTRA</title>
+    <meta name="description" content="Sistem Elektronik Digital OSIS Nawasena SMAN 2 Jonggol 2025/2026">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20,100,1,200&"
-        rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20,100,1,200&" rel="stylesheet" />
     <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/struktur.css">
+    <link rel="stylesheet" href="css/dokum.css">
+    <link rel="stylesheet" href="css/sponsor.css">
+    <style>
+        /* Program Kerja inline styles */
+        .proker-list { display:flex; flex-direction:column; gap:1.5rem; }
+        .proker-item { background:var(--bg-card); padding:2rem; border-radius:var(--radius); box-shadow:var(--shadow); border-left:5px solid var(--accent); display:flex; justify-content:space-between; align-items:center; transition:transform 0.2s; }
+        .proker-item:hover { transform:scale(1.01); }
+        .status-badge { padding:5px 15px; border-radius:20px; font-size:0.75rem; font-weight:700; text-transform:uppercase; white-space:nowrap; }
+        .status-ongoing { background:#fef3c7; color:#d97706; }
+        .status-done { background:#dcfce7; color:#166534; }
+        .status-plan { background:#e2e8f0; color:#475569; }
+        @media (max-width:600px) { .proker-item { flex-direction:column; align-items:flex-start; gap:1rem; } }
+
+        /* SPA active nav link */
+        .nav-links a.active { color: var(--accent); font-weight: 700; }
+
+        /* App root transition handled by router.js */
+        #app-root { min-height: 80vh; }
+    </style>
 </head>
 
 <body>
 
+    <!-- ════════ NAVBAR (persistent) ════════ -->
     <nav class="navbar">
         <div class="nav-container">
             <div class="hamburger" id="hamburger">
-                <span></span>
-                <span></span>
-                <span></span>
+                <span></span><span></span><span></span>
             </div>
-
             <div class="logo">
-                <a href="index.html">SENTRA<span>.</span></a>
+                <a href="#/">SENTRA<span>.</span></a>
             </div>
-
             <ul class="nav-links" id="nav-links">
-                <li><a href="index.html">Beranda</a></li>
-                <li><a href="struktur.html">Struktur</a></li>
-                <li><a href="program.html">Program Kerja</a></li>
-                <li><a href="dokumentasi.html">Dokumentasi</a></li>
-                <li><a href="sponsor.html">Sponsorship</a></li>
-                <li><a href="aurora.html">AURORA</a></li>
+                <li><a href="#/"          data-page="beranda">Beranda</a></li>
+                <li><a href="#/struktur"  data-page="struktur">Struktur</a></li>
+                <li><a href="#/program"   data-page="program">Program Kerja</a></li>
+                <li><a href="#/dokumentasi" data-page="dokumentasi">Dokumentasi</a></li>
+                <li><a href="#/sponsor"   data-page="sponsor">Sponsorship</a></li>
+                <li><a href="#/aurora"    data-page="aurora">AURORA</a></li>
             </ul>
-
-            <button id="dark-mode-toggle" class="btn-theme"><span
-                    class="material-symbols-outlined">dark_mode</span></button>
+            <button id="dark-mode-toggle" class="btn-theme">
+                <span class="material-symbols-outlined">dark_mode</span>
+            </button>
         </div>
     </nav>
 
+    <!-- ════════ PAGE CONTENT (SPA root) ════════ -->
+    <div id="app-root"></div>
 
-    <header id="beranda" class="hero">
-        <div class="hero-content">
-            <span class="badge">NAWASENA 2025/2026</span>
-            <h1>Membangun Masa Depan <span>Cerah</span> Bersama.</h1>
-            <p>Wadah aspirasi dan inovasi siswa untuk menciptakan perubahan positif di lingkungan sekolah.</p>
-            <div class="hero-btns">
-                <a href="#nawasena" class="btn-primary">Filosofi Kami</a>
-            </div>
-        </div>
-    </header>
-
-    <main class="container">
-        <section id="nawasena" class="section-padding">
-            <div class="section-header">
-                <h2>Filosofi</h2>
-                <p>Mengenal makna dibalik nama Nawasena.</p>
-            </div>
-            <div class="glass-card">
-                <p><strong>Nawasena</strong> berasal dari bahasa Sanskerta yang berarti <em>"Masa Depan yang
-                        Cerah"</em>. Kami tidak hanya sekadar organisasi, tapi sebuah penggerak untuk membawa harapan
-                    baru.</p>
-            </div>
-        </section>
-        <section id="agenda" class="section-padding">
-            <div class="section-header">
-                <h2>Agenda Mendatang</h2>
-            </div>
-            <div id="agenda-list" class="modern-grid">
-            </div>
-        </section>
-    </main>
-
+    <!-- ════════ MINI PLAYER (persistent) ════════ -->
     <div class="mini-player">
         <div class="player-info">
-            <p class="track-name" style="font-weight: bold; font-size: 0.8rem;">Radio Nawasena</p>
+            <p class="track-name" style="font-weight:bold; font-size:0.8rem;">Radio Nawasena</p>
             <div class="player-controls">
-                <button class="btn-player" id="btn-play-pause" onclick="playPauseMusic()"><span
-                        class="material-symbols-outlined">play_arrow</span></button>
-                <button class="btn-player" onclick="nextMusic()"><span
-                        class="material-symbols-outlined">skip_next</button>
+                <button class="btn-player" id="btn-play-pause" onclick="playPauseMusic()">
+                    <span class="material-symbols-outlined">play_arrow</span>
+                </button>
+                <button class="btn-player" onclick="nextMusic()">
+                    <span class="material-symbols-outlined">skip_next</span>
+                </button>
             </div>
         </div>
         <audio id="audio-player"></audio>
     </div>
 
+    <!-- ════════ SCRIPTS ════════ -->
     <script src="js/api.js"></script>
     <script src="js/script.js"></script>
-</body>
+    <script src="js/struktur.js"></script>
+    <script src="js/program.js"></script>
+    <script src="js/dokum.js"></script>
+    <script src="js/aurora.js"></script>
+    <script src="js/sponsor.js"></script>
+    <script src="js/router.js"></script>
 
+</body>
 </html>
