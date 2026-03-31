@@ -12,7 +12,7 @@ async function loadPengurus() {
     globalPengurusData = pengurusList;
 
     if (!pengurusList || pengurusList.length === 0) {
-        container.innerHTML = '<p style="text-align:center; color: var(--text-muted); width: 100%;">Belum ada data Pengurus.</p>';
+        container.innerHTML = '';
         return;
     }
 
@@ -45,7 +45,7 @@ async function loadSekbid() {
     globalSekbidData = sekbidList;
 
     if (!sekbidList || sekbidList.length === 0) {
-        container.innerHTML = '<p style="text-align:center; color: var(--text-muted); width: 100%;">Belum ada data Seksi Bidang.</p>';
+        container.innerHTML = '';
         return;
     }
 

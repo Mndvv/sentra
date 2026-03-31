@@ -5,7 +5,7 @@ async function loadProgramKerja() {
     const programList = await fetchProgramKerja();
 
     if (!programList || programList.length === 0) {
-        container.innerHTML = '<p style="text-align:center; color: var(--text-muted); width: 100%;">Belum ada data Program Kerja.</p>';
+        container.innerHTML = '';
         return;
     }
 

@@ -109,12 +109,16 @@ async function restorePlayerState() {
     
     try {
         // Load playlist dulu
-        const response = await fetch('assets/radio/tracks.json');
+        const response = await fetch(`${UPLOADS_URL}/radio/tracks.json`);
         const tracks = await response.json();
-        playlist = tracks.map(filename => ({
-            title: `Radio Nawasena - ${filename.replace(/\.[^/.]+$/, "")}`,
-            url: `assets/radio/${filename}`
-        }));
+        playlist = tracks.map(track => {
+            const filename = track.file || track;
+            const titleName = track.title || filename.replace(/\.[^/.]+$/, "");
+            return {
+                title: `Radio Nawasena - ${titleName}`,
+                url: `${UPLOADS_URL}/radio/${filename}`
+            };
+        });
         
         if (playlist.length === 0) return;
         
@@ -162,7 +166,7 @@ async function tampilkanAgenda() {
     safeExecute('agenda-list', async (container) => {
         const agendaList = await fetchAgenda();
         if(!agendaList || agendaList.length === 0) {
-            container.innerHTML = '<p style="color:var(--text-muted); padding:1rem;">Belum ada agenda terdekat.</p>';
+            container.innerHTML = '';
             return;
         }
         container.innerHTML = agendaList.map(item => `

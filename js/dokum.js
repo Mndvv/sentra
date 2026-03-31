@@ -10,7 +10,7 @@
                 renderGallery(events);
             } catch (error) {
                 console.error('Gagal memuat gallery dari backend:', error);
-                document.getElementById('gallery-container').innerHTML = '<p style="text-align:center; color:var(--text-muted); width: 100%;">Belum ada dokumentasi acara.</p>';
+                document.getElementById('gallery-container').innerHTML = '';
             }
         }
 
@@ -18,7 +18,7 @@
         function renderGallery(events) {
             const container = document.getElementById('gallery-container');
             if(!events || events.length === 0) {
-                container.innerHTML = '<p style="text-align:center; color:var(--text-muted); width: 100%;">Belum ada dokumentasi acara.</p>';
+                container.innerHTML = '';
                 return;
             }
 
