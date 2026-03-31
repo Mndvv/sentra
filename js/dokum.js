@@ -3,132 +3,30 @@
         let currentImageIndex = 0;
         let galleryImages = [];
 
-        // Fungsi untuk memuat data dari JSON
+        // Fungsi untuk memuat data dari API
         async function loadGalleryData() {
             try {
-                // Coba load dari file JSON
-                const response = await fetch('assets/gallery/data.json');
-                if (!response.ok) {
-                    throw new Error('Gagal memuat data');
-                }
-                const data = await response.json();
-                renderGallery(data);
+                const events = await fetchDokumentasi();
+                renderGallery(events);
             } catch (error) {
-                console.log('Menggunakan data default (fallback)');
-                // Data default jika JSON tidak tersedia
-                const defaultData = {
-                    events: [
-                        {
-                            id: 1,
-                            title: "Hari Guru Nasional",
-                            date: "10 Oktober 2025",
-                            description: "Perayaan Hari Guru Nasional dengan berbagai kegiatan seru untuk menghormati jasa para guru.",
-                            thumbnail: "assets/event/hgn/hdr.webp",
-                            images: [
-                                {
-                                    url: "assets/event/hgn/1.webp",
-                                    caption: "Upacara Pengibaran Sang Merah Putih"
-                                },
-                                {
-                                    url: "assets/event/hgn/2.webp",
-                                    caption: "Parade dan Penyerahan Kue kepada Guru"
-                                },
-                                {
-                                    url: "assets/event/hgn/3.webp",
-                                    caption: "Penyampaian Kesan dan Pesan Siswa untuk Guru"
-                                },
-                                {
-                                    url: "assets/event/hgn/4.webp",
-                                    caption: "Silih Asih dan Pemberian Hadiah untuk Guru"
-                                },
-                                {
-                                    url: "assets/event/hgn/5.webp",
-                                    caption: "Pentas Seni Siswa"
-                                }
-                            ]
-                        },
-                        {
-                            id: 2,
-                            title: "EPOK S10",
-                            date: "15 Desember 2025",
-                            description: "Kompetisi olahraga dan seni antar kelas untuk mempererat solidaritas siswa.",
-                            thumbnail: "assets/event/epok/hdr.webp",
-                            images: [
-                                {
-                                    url: "assets/event/epok/1.webp",
-                                    caption: "Upacara Pembukaan EPOK S10"
-                                },
-                                {
-                                    url: "assets/event/epok/2.webp",
-                                    caption: "Absensi Peserta"
-                                },
-                                {
-                                    url: "assets/event/epok/3.webp",
-                                    caption: "Penampilan Modern Dance"
-                                },
-                                {
-                                    url: "assets/event/epok/4.webp",
-                                    caption: "Penampilan Tari Tradisional"
-                                },
-                                {
-                                    url: "assets/event/epok/5.webp",
-                                    caption: "Pertandingan Futsal Antar Kelas"
-                                },
-                                {
-                                    url: "assets/event/epok/6.webp",
-                                    caption: "Pertandingan Basket Antar Kelas"
-                                },
-                                {
-                                    url: "assets/event/epok/7.webp",
-                                    caption: "Pertandingan Dodgeball Antar Kelas"
-                                },
-                                {
-                                    url: "assets/event/epok/8.webp",
-                                    caption: "Stand Jualan Makanan dan Minuman"
-                                }
-                            ]
-                        },
-                        {
-                            id: 3,
-                            title: "Ngobrolin Kampus",
-                            date: "17  Januari 2026",
-                            description: "Acara edukatif dengan tujuan membantu siswa naik level pendidikan, menampilkan kampus fest, dan diskusi interaktif.",
-                            thumbnail: "assets/event/ngmps/hdr.webp",
-                            images: [
-                                {
-                                    url: "assets/event/ngmps/1.webp",
-                                    caption: "Sesi pembukaan dengan sambutan"
-                                },
-                                {
-                                    url: "assets/event/ngmps/2.webp",
-                                    caption: "Penampilan Tari Tradisional sebagai pembuka acara"
-                                },
-                                {
-                                    url: "assets/event/ngmps/4.webp",
-                                    caption: "Pengenalan Alumni yang sukses di berbagai bidang"
-                                },
-                                {
-                                    url: "assets/event/ngmps/5.webp",
-                                    caption: "Penampilan Modern Dance oleh siswa sebagai hiburan intermezzo"
-                                },
-                                {
-                                    url: "assets/event/ngmps/6.webp",
-                                    caption: "Seminar dan diskusi interaktif dengan alumni dan perwakilan kampus"
-                                }
-                            ]
-                        }
-                    ]
-                };
-                renderGallery(defaultData);
+                console.error('Gagal memuat gallery dari backend:', error);
+                document.getElementById('gallery-container').innerHTML = '<p style="text-align:center; color:var(--text-muted); width: 100%;">Belum ada dokumentasi acara.</p>';
             }
         }
 
         // Fungsi untuk merender gallery
-        function renderGallery(data) {
+        function renderGallery(events) {
             const container = document.getElementById('gallery-container');
-            container.innerHTML = data.events.map(event => `
+            if(!events || events.length === 0) {
+                container.innerHTML = '<p style="text-align:center; color:var(--text-muted); width: 100%;">Belum ada dokumentasi acara.</p>';
+                return;
+            }
+
+            container.innerHTML = events.map(event => {
+                const imgThumbUrl = getImageUrl(event.thumbnail);
+                return `
                 <div class="event-card" onclick="openGallery(${event.id})">
-                    <img src="${event.thumbnail}" alt="${event.title}" style="width:100%; border-radius: 12px; margin-bottom: 1rem;">
+                    <img src="${imgThumbUrl}" alt="${event.title}" style="width:100%; border-radius: 12px; margin-bottom: 1rem;">
                     <div class="event-info">
                         <small style="color: var(--accent);">${event.date}</small>
                         <h3>${event.title}</h3>
@@ -138,10 +36,11 @@
                         </small>
                     </div>
                 </div>
-            `).join('');
+                `;
+            }).join('');
 
             // Simpan data events untuk digunakan nanti
-            window.galleryEvents = data.events.reduce((acc, event) => {
+            window.galleryEvents = events.reduce((acc, event) => {
                 acc[event.id] = event;
                 return acc;
             }, {});
@@ -179,7 +78,7 @@
             const imageCaption = document.getElementById('imageCaption');
             const imageCounter = document.getElementById('imageCounter');
 
-            mainImage.src = image.url;
+            mainImage.src = getImageUrl(image.url);
             imageCaption.textContent = image.caption;
             imageCounter.textContent = `${currentImageIndex + 1} / ${galleryImages.length}`;
 
@@ -200,7 +99,7 @@
             const thumbnailList = document.getElementById('thumbnailList');
             thumbnailList.innerHTML = galleryImages.map((image, index) => `
                 <img 
-                    src="${image.url}" 
+                    src="${getImageUrl(image.url)}" 
                     alt="${image.caption}"
                     class="thumbnail ${index === currentImageIndex ? 'active' : ''}"
                     onclick="jumpToImage(${index})"

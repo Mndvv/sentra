@@ -1,14 +1,17 @@
 <!DOCTYPE html>
 <html lang="id">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Dokumentasi - OSIS Nawasena</title>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20,100,1,200&" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20,100,1,200&"
+        rel="stylesheet" />
     <link rel="stylesheet" href="css/style.css">
     <link rel="stylesheet" href="css/dokum.css">
 </head>
+
 <body>
     <nav class="navbar">
         <div class="nav-container">
@@ -17,21 +20,22 @@
                 <span></span>
                 <span></span>
             </div>
-            
+
             <div class="logo">
                 <a href="index.html">SENTRA<span>.</span></a>
             </div>
-            
+
             <ul class="nav-links" id="nav-links">
                 <li><a href="index.html">Beranda</a></li>
                 <li><a href="struktur.html">Struktur</a></li>
                 <li><a href="program.html">Program Kerja</a></li>
                 <li><a href="dokumentasi.html">Dokumentasi</a></li>
-                <li><a href="x.html">AURORA</a></li>
                 <li><a href="sponsor.html">Sponsorship</a></li>
+                <li><a href="aurora.html">AURORA</a></li>
             </ul>
 
-            <button id="dark-mode-toggle" class="btn-theme"><span class="material-symbols-outlined">dark_mode</span></button>
+            <button id="dark-mode-toggle" class="btn-theme"><span
+                    class="material-symbols-outlined">dark_mode</span></button>
         </div>
     </nav>
 
@@ -56,23 +60,23 @@
                 </div>
                 <button class="close-gallery" onclick="closeGallery()">&times;</button>
             </div>
-            
+
             <div class="gallery-main">
                 <button class="nav-btn prev" onclick="prevImage()">
                     <span class="material-symbols-outlined">chevron_left</span>
                 </button>
-                
+
                 <div class="main-image-container">
                     <img id="mainImage" class="main-image" src="" alt="Gallery Image">
                     <div id="imageCaption" class="image-caption"></div>
                     <div id="imageCounter" class="image-counter"></div>
                 </div>
-                
+
                 <button class="nav-btn next" onclick="nextImage()">
                     <span class="material-symbols-outlined">chevron_right</span>
                 </button>
             </div>
-            
+
             <div class="gallery-thumbnails" id="thumbnailContainer">
                 <div class="thumbnail-container" id="thumbnailList">
                     <!-- Thumbnails akan diisi oleh JavaScript -->
@@ -85,14 +89,18 @@
         <div class="player-info">
             <p class="track-name" style="font-weight: bold; font-size: 0.8rem;">Radio Nawasena</p>
             <div class="player-controls">
-                <button class="btn-player" id="btn-play-pause" onclick="playPauseMusic()"><span class="material-symbols-outlined">play_arrow</span></button>
-                <button class="btn-player" onclick="nextMusic()"><span class="material-symbols-outlined">skip_next</span></button>
+                <button class="btn-player" id="btn-play-pause" onclick="playPauseMusic()"><span
+                        class="material-symbols-outlined">play_arrow</span></button>
+                <button class="btn-player" onclick="nextMusic()"><span
+                        class="material-symbols-outlined">skip_next</span></button>
             </div>
         </div>
         <audio id="audio-player"></audio>
     </div>
 
+    <script src="js/api.js"></script>
     <script src="js/script.js"></script>
     <script src="js/dokum.js"></script>
 </body>
+
 </html>

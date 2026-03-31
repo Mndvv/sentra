@@ -1,7 +1,6 @@
 // --- DATA SOURCE ---
-const dataAgenda = [
-    { judul: "Rapat Pleno Awal", tanggal: "04 April 2026", ket: "Pemaparan Program Kerja untuk satu periode 2025/2026." }
-];
+
+
 
 let playlist = [];
 let currentTrackIndex = 0;
@@ -159,37 +158,18 @@ function savePlayerProgress() {
 }
 
 // --- FUNCTIONS ---
-function tampilkanAgenda() {
-    safeExecute('agenda-list', (container) => {
-        container.innerHTML = dataAgenda.map(item => `
+async function tampilkanAgenda() {
+    safeExecute('agenda-list', async (container) => {
+        const agendaList = await fetchAgenda();
+        if(!agendaList || agendaList.length === 0) {
+            container.innerHTML = '<p style="color:var(--text-muted); padding:1rem;">Belum ada agenda terdekat.</p>';
+            return;
+        }
+        container.innerHTML = agendaList.map(item => `
             <div class="agenda-card">
                 <small style="color: var(--accent); font-weight: 600;">${item.tanggal}</small>
                 <h3>${item.judul}</h3>
                 <p>${item.ket}</p>
-            </div>
-        `).join('');
-    });
-}
-
-function tampilkanSekbid() {
-    safeExecute('sekbid-list', (container) => {
-        const listSekbid = [
-            "Keimanan dan Ketaqwaan Terhadap Tuhan Yang Maha Esa",
-            "Budi Pekerti atau Akhlak Mulia",
-            "Kepribadian Unggul, Wawasan Kebangsaan dan Bela Negara",
-            "Prestasi Akademik, Seni, dan atau Olahraga Sesuai Minat dan Bakat",
-            "Demokrasi, Hak Asasi Manusia, Pendidikan Politik, Lingkungan Hidup, Kepekaan dan Toleransi Sosial Dalam Konteks Masyarakat Plural",
-            "Kreativitas, Keterampilan dan Kewirausahaan",
-            "Kualitas Jasmani, Kesehatan, dan Gizi Berbasis Sumber Gizi Yang Terdiversifikasi",
-            "Sastra dan Budaya",
-            "Teknologi, Informasi, dan Komunikasi",
-            "Komunikasi Dalam Bahasa Inggris"
-        ];
-        container.innerHTML = listSekbid.map((nama, i) => `
-            <div class="sekbid-card">
-                <span class="sekbid-num">${i + 1}</span>
-                <h4>SEKBID ${i + 1}</h4>
-                <p>${nama}</p>
             </div>
         `).join('');
     });
@@ -220,7 +200,6 @@ document.addEventListener('DOMContentLoaded', () => {
     initDarkMode();
     initHamburger();
     tampilkanAgenda();
-    tampilkanSekbid();
     restorePlayerState();
     
     // Simpan progres waktu putar setiap 5 detik

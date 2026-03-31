@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="id">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -7,9 +8,11 @@
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="css/style.css">
     <link rel="stylesheet" href="css/struktur.css">
-    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20,100,1,200&" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20,100,1,200&"
+        rel="stylesheet" />
     <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
 </head>
+
 <body>
     <nav class="navbar">
         <div class="nav-container">
@@ -18,105 +21,33 @@
                 <span></span>
                 <span></span>
             </div>
-            
+
             <div class="logo">
                 <a href="index.html">SENTRA<span>.</span></a>
             </div>
-            
+
             <ul class="nav-links" id="nav-links">
                 <li><a href="index.html">Beranda</a></li>
                 <li><a href="struktur.html">Struktur</a></li>
                 <li><a href="program.html">Program Kerja</a></li>
                 <li><a href="dokumentasi.html">Dokumentasi</a></li>
-                <li><a href="x.html">AURORA</a>
-                </li>
                 <li><a href="sponsor.html">Sponsorship</a></li>
+                <li><a href="aurora.html">AURORA</a>
             </ul>
 
-            <button id="dark-mode-toggle" class="btn-theme"><span class="material-symbols-outlined">dark_mode</span></button>
+            <button id="dark-mode-toggle" class="btn-theme"><span
+                    class="material-symbols-outlined">dark_mode</span></button>
         </div>
     </nav>
-    
+
     <main class="container section-padding">
         <div class="section-header" style="margin-top: 4rem; text-align: center;">
             <h2>Struktur Organisasi</h2>
             <p>Kabinet Nawasena 2025/2026</p>
         </div>
-        
-        <!-- Pengurus Inti -->
+
         <div class="bento-grid" id="pengurus-inti-container">
-            <!-- Ketua Umum -->
-            <div class="bento-item featured" onclick="showPengurusDetail('ketua')">
-                <div class="member-photo"><img src="assets/pp/cece.webp" alt="Ketua"></div>
-                <div class="member-info">
-                    <span class="role-badge">Ketua Umum</span>
-                    <h3>Cecillia Natasya Sonthani</h3>
-                    <p>"Be Yourself, For Yourself."</p>
-                </div>
-            </div>
-
-            <!-- Wakil Ketua 1 -->
-            <div class="bento-item" onclick="showPengurusDetail('wakil1')">
-                <div class="member-photo"><img src="assets/pp/adam.webp" alt="Wakil"></div>
-                <div class="member-info">
-                    <span class="role-badge">Wakil Ketua 1</span>
-                    <h3>Adam Abdulloh Mu'arif</h3>
-                </div>
-            </div>
-            
-            <!-- Wakil Ketua 2 -->
-            <div class="bento-item" onclick="showPengurusDetail('wakil2')">
-                <div class="member-photo"><img src="assets/pp/adi.webp" alt="Wakil"></div>
-                <div class="member-info">
-                    <span class="role-badge">Wakil Ketua 2</span>
-                    <h3>Muhammad Fadhli Hidayatullah</h3>
-                </div>
-            </div>
-
-            <!-- Sekretaris Umum -->
-            <div class="bento-item" onclick="showPengurusDetail('sekum')">
-                <div class="member-photo"><img src="assets/pp/pe.webp" alt="Sekretaris"></div>
-                <div class="member-info">
-                    <span class="role-badge">Sekretaris Umum</span>
-                    <h3>Maulana Ferdi Irawan</h3>
-                </div>
-            </div>
-            
-            <!-- Sekretaris 1 -->
-            <div class="bento-item" onclick="showPengurusDetail('sek1')">
-                <div class="member-photo"><img src="assets/pp/anggun.webp" alt="Sekretaris"></div>
-                <div class="member-info">
-                    <span class="role-badge">Sekretaris 1</span>
-                    <h3>Anggun Permata Jalasena Putri</h3>
-                </div>
-            </div>
-            
-            <!-- Sekretaris 2 -->
-            <div class="bento-item" onclick="showPengurusDetail('sek2')">
-                <div class="member-photo"><img src="assets/pp/inez.webp" alt="Sekretaris"></div>
-                <div class="member-info">
-                    <span class="role-badge">Sekretaris 2</span>
-                    <h3>Inez Mikha Rahayu</h3>
-                </div>
-            </div>
-
-            <!-- Bendahara Umum -->
-            <div class="bento-item" onclick="showPengurusDetail('bendum')">
-                <div class="member-photo"><img src="assets/pp/lulu.webp" alt="Bendahara"></div>
-                <div class="member-info">
-                    <span class="role-badge">Bendahara Umum</span>
-                    <h3>Lulu Karpika</h3>
-                </div>
-            </div>
-            
-            <!-- Bendahara 1 -->
-            <div class="bento-item" onclick="showPengurusDetail('ben1')">
-                <div class="member-photo"><img src="assets/pp/angga.webp" alt="Bendahara"></div>
-                <div class="member-info">
-                    <span class="role-badge">Bendahara 1</span>
-                    <h3>Erlangga Nuriansyah</h3>
-                </div>
-            </div>
+            <!-- Diisi secara dinamis melalui API -->
         </div>
 
         <!-- Seksi Bidang -->
@@ -156,14 +87,18 @@
         <div class="player-info">
             <p class="track-name" style="font-weight: bold; font-size: 0.8rem;">Radio Nawasena</p>
             <div class="player-controls">
-                <button class="btn-player" id="btn-play-pause" onclick="playPauseMusic()"><span class="material-symbols-outlined">play_arrow</span></button>
-                <button class="btn-player" onclick="nextMusic()"><span class="material-symbols-outlined">skip_next</span></button>
+                <button class="btn-player" id="btn-play-pause" onclick="playPauseMusic()"><span
+                        class="material-symbols-outlined">play_arrow</span></button>
+                <button class="btn-player" onclick="nextMusic()"><span
+                        class="material-symbols-outlined">skip_next</span></button>
             </div>
         </div>
         <audio id="audio-player"></audio>
     </div>
 
+    <script src="js/api.js"></script>
     <script src="js/script.js"></script>
     <script src="js/struktur.js"></script>
 </body>
+
 </html>
