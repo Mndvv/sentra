@@ -8,7 +8,9 @@ async function loadPengurus() {
     if (!container) return;
 
     // Ambil dari backend lewat api.js
-    const pengurusList = await fetchPengurus();
+    const rawList = await fetchPengurus();
+    // Filter out developer account from public display
+    const pengurusList = rawList.filter(p => p.id !== 'DEV-1' && p.nama !== 'Developer');
     globalPengurusData = pengurusList;
 
     if (!pengurusList || pengurusList.length === 0) {
@@ -117,27 +119,41 @@ function showPengurusDetail(id) {
         `).join('');
     }
 
-    // Visi Misi if exists (biasanya untuk ketua namun bisa fleksibel)
+    // Visi Misi if exists
     let visiMisiSection = '';
-    if (data.visi || (data.misi && Array.isArray(data.misi) && data.misi.length > 0)) {
+
+    const hasVisi = Array.isArray(data.visi) ? data.visi.length > 0 : !!data.visi;
+    const hasMisi = data.misi && Array.isArray(data.misi) && data.misi.length > 0;
+
+    if (hasVisi || hasMisi) {
+        // Render visi: list if array, paragraph if string
+        let visiHtml = '';
+        if (Array.isArray(data.visi) && data.visi.length > 0) {
+            visiHtml = `<ul class="misi-list">${data.visi.map(v => `<li>${v}</li>`).join('')}</ul>`;
+        } else if (typeof data.visi === 'string' && data.visi) {
+            visiHtml = `<p>${data.visi}</p>`;
+        }
+
         let misiHtml = '';
-        if (data.misi && Array.isArray(data.misi)) {
+        if (hasMisi) {
             misiHtml = data.misi.map(m => `<li>${m}</li>`).join('');
         }
-        
+
         visiMisiSection = `
             <div class="visi-misi-section">
-                <h4>🎯 Visi & Misi</h4>
+                <h4>🎯 Visi &amp; Misi</h4>
+                ${hasVisi ? `
                 <div class="visi-item">
                     <strong>Visi:</strong>
-                    <p>${data.visi || '-'}</p>
-                </div>
+                    ${visiHtml}
+                </div>` : ''}
+                ${hasMisi ? `
                 <div class="misi-item">
                     <strong>Misi:</strong>
                     <ul class="misi-list">
                         ${misiHtml}
                     </ul>
-                </div>
+                </div>` : ''}
             </div>
         `;
     }

@@ -1,5 +1,5 @@
-const BASE_URL = "http://192.168.1.17:5000/api";
-const UPLOADS_URL = "http://192.168.1.17:5000/uploads";
+const BASE_URL = "http://localhost:5000/api";
+const UPLOADS_URL = "http://localhost:5000/uploads";
 
 // Fetch Pengurus
 async function fetchPengurus() {
@@ -79,17 +79,18 @@ async function submitKotakSaran(data) {
     }
 }
 
-// Utility untuk convert path dari backend jika butuh
+// Utility untuk convert path dari backend jadi URL lengkap
 function getImageUrl(path) {
     if (!path) return 'assets/default-placeholder.webp'; // Fallback
     if (path.startsWith('http') || path.startsWith('assets/')) return path;
 
-    // Asumsi path di DB adalah nama file atau relatif misal "pengurus/cece.webp"
-    // Menjadikan http://localhost:5000/uploads/pengurus/cece.webp
-    // Mari normalize slash-nya dulu
+    // Strip leading slash if present: /uploads/pp/cece.webp -> uploads/pp/cece.webp
     let normalized = path.replace(/^\//, '');
+
+    // Strip 'uploads/' prefix since UPLOADS_URL already includes it
     if (normalized.startsWith('uploads/')) {
-        normalized = normalized.replace('uploads/', '');
+        normalized = normalized.slice('uploads/'.length);
     }
+
     return `${UPLOADS_URL}/${normalized}`;
 }
