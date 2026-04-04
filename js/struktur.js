@@ -9,8 +9,8 @@ async function loadPengurus() {
 
     // Ambil dari backend lewat api.js
     const rawList = await fetchPengurus();
-    // Filter out developer account from public display
-    const pengurusList = rawList.filter(p => p.id !== 'DEV-1' && p.nama !== 'Developer');
+    // Filter out developer account and Sekbid members from Pengurus Inti display
+    const pengurusList = rawList.filter(p => p.id !== 'DEV-1' && p.nama !== 'Developer' && !p.sekbid_number);
     globalPengurusData = pengurusList;
 
     if (!pengurusList || pengurusList.length === 0) {

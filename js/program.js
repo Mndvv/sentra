@@ -23,12 +23,16 @@ async function loadProgramKerja() {
         return `
             <div class="proker-item">
                 <div class="proker-info">
-                    <h3 style="margin-bottom: 0.5rem;">${prog.nama}</h3>
+                    <h3 style="margin-bottom: 0.2rem;">${prog.nama}</h3>
+                    <span style="display:inline-block; margin-bottom: 0.8rem; font-size: 0.75rem; font-weight:bold; color: var(--accent); padding: 2px 8px; border-radius: 4px; background: rgba(var(--accent-rgb), 0.1)">
+                        ${prog.scope}
+                    </span>
                     <p style="color: var(--text-muted); font-size: 0.9rem; max-width: 500px;">
-                        ${prog.deskripsi}
+                        ${prog.deskripsi || '-'}
                     </p>
-                    <div style="margin-top: 1rem; font-weight: 600; font-size: 0.85rem;">
-                        ${prog.waktu ? prog.waktu : ''}
+                    <div style="margin-top: 1rem; font-weight: 600; font-size: 0.85rem; display: flex; align-items: center; gap: 0.5rem">
+                        <i class="fas fa-calendar-alt" style="color: var(--text-muted)"></i>
+                        ${prog.target || '-'}
                     </div>
                 </div>
                 <span class="status-badge ${statusClass}">${statusText}</span>
