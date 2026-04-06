@@ -13,7 +13,7 @@ const templates = {
             <div class="hero-content">
                 <span class="badge">NAWASENA 2025/2026</span>
                 <h1>Membangun Masa Depan <span>Cerah</span> Bersama.</h1>
-                <p>Wadah aspirasi dan inovasi siswa untuk menciptakan perubahan positif di lingkungan sekolah.</p>
+                <p>Sebuah mercusuar digital yang mengintegrasikan gerak organisasi dan menampung titah aspirasi demi kemajuan sekolah.</p>
                 <div class="hero-btns">
                     <a href="#nawasena-section" class="btn-primary" id="filosofi-btn">Filosofi Kami</a>
                 </div>
@@ -26,7 +26,7 @@ const templates = {
                     <p>Mengenal makna dibalik nama Nawasena.</p>
                 </div>
                 <div class="glass-card">
-                    <p><strong>Nawasena</strong> berasal dari bahasa Sanskerta yang berarti <em>"Masa Depan yang Cerah"</em>. Kami tidak hanya sekadar organisasi, tapi sebuah penggerak untuk membawa harapan baru.</p>
+                    <p>Nama <strong>Nawasena</strong> yang diambil dari bahasa Sanskerta secara ontologis menempatkan organisasi ini pada posisi kompas moral yang mengarahkan pandangan jauh ke cakrawala.<em> Masa depan yang cerah </em> bukan sekadar angan, namun menjadi jangkar bagi setiap tindakan yang diambil oleh para pengurusnya. Di sini, Nawasena berperan sebagai payung besar atau oikos yang menaungi OSIS dan MPK dalam satu napas perjuangan yang harmonis.</p>
                 </div>
             </section>
             <section id="agenda" class="section-padding">
