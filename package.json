@@ -1,0 +1,20 @@
+{
+  "name": "sentra",
+  "version": "1.0.0",
+  "description": "Sistem Elektronik Terpadu OSIS Nawasena SMAN 2 Jonggol 2025/2026",
+  "scripts": {
+    "start": "serve . -p 8080",
+    "dev": "serve . -p 8080"
+  },
+  "keywords": [
+    "osis",
+    "nawasena",
+    "sman2jonggol",
+    "sentra"
+  ],
+  "author": "NAWASENA Development Team",
+  "license": "MIT",
+  "devDependencies": {
+    "serve": "^14.2.1"
+  }
+}
